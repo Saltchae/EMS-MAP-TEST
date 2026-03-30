@@ -2,10 +2,10 @@ mapboxgl.accessToken = 'pk.eyJ1Ijoic2FsdGNoYWUiLCJhIjoiY21uY2cydnE3MTFzajJycHR4Z
 
 // Engineer marker data with approximate coordinates
 const engineers = [
-  { name: '박엑셈 대리', coords: [126.72, 37.73] },
-  { name: '최엑셈 차장', coords: [127.05, 37.66] },
-  { name: '김엑셈 과장', coords: [126.88, 37.56] },
-  { name: '이엑셈 사원', coords: [127.01, 37.31] },
+  { name: '박엑셈 대리', coords: [126.72, 37.73], initial: '박', color: '#5B7A6E', profileType: 'initial' },
+  { name: '최엑셈 차장', coords: [127.05, 37.66], emoji: '🐠', profileType: 'emoji' },
+  { name: '김엑셈 과장', coords: [126.88, 37.56], profileImg: 'assets/profile-kim.png', profileType: 'image' },
+  { name: '이엑셈 사원', coords: [127.01, 37.31], initial: '이', color: '#6E7A5B', profileType: 'initial' },
 ];
 
 // Theme palettes — mono only, no blue
@@ -29,15 +29,18 @@ const themes = {
     placeLabel: '#a8a8a8',
     markerLabel: '#ffffff',
     markerShadow: 'rgba(28, 28, 28, 0.8)',
+    markerAccent: '#40e2ff',
+    markerGlow: true,
+    markerType: 'dot',
   },
   light: {
     style: 'mapbox://styles/mapbox/light-v11',
     land: '#e8e8e8',
-    water: '#f0f0f0',
-    waterLine: '#e2e2e2',
+    water: '#cdd4d6',
+    waterLine: '#c2cacd',
     building: '#dcdcdc',
     landuse: '#e0e0e0',
-    park: '#dde4d0',
+    park: '#d5d8cd',
     road: '#d4d4d4',
     majorRoad: '#c8c8c8',
     roadCase: '#e0e0e0',
@@ -49,6 +52,33 @@ const themes = {
     placeLabel: '#585858',
     markerLabel: '#222222',
     markerShadow: 'rgba(255, 255, 255, 0.8)',
+    markerAccent: '#222222',
+    markerGlow: false,
+    markerType: 'dot',
+
+  },
+  profile: {
+    style: 'mapbox://styles/mapbox/light-v11',
+    land: '#e8e8e8',
+    water: '#cdd4d6',
+    waterLine: '#c2cacd',
+    building: '#dcdcdc',
+    landuse: '#e0e0e0',
+    park: '#d5d8cd',
+    road: '#d4d4d4',
+    majorRoad: '#c8c8c8',
+    roadCase: '#e0e0e0',
+    admin: '#c2c2c2',
+    label: '#707070',
+    labelHalo: 'rgba(240, 240, 240, 0.8)',
+    roadLabel: '#909090',
+    poiLabel: '#868686',
+    placeLabel: '#585858',
+    markerLabel: '#222222',
+    markerShadow: 'rgba(255, 255, 255, 0.8)',
+    markerAccent: '#222222',
+    markerGlow: false,
+    markerType: 'profile',
   },
 };
 
@@ -66,6 +96,14 @@ const map = new mapboxgl.Map({
 // Apply theme colors to map layers
 function applyTheme(palette) {
   const layers = map.getStyle().layers;
+
+  // Debug: log all fill/fill-extrusion layers to find nature layer IDs
+  console.log('--- All fill layers ---');
+  layers.forEach(l => {
+    if (l.type === 'fill' || l.type === 'fill-extrusion') {
+      console.log(`id: "${l.id}", type: ${l.type}, source-layer: "${l['source-layer'] || ''}"`)
+    }
+  });
 
   layers.forEach(layer => {
     const id = layer.id;
@@ -86,6 +124,12 @@ function applyTheme(palette) {
     }
 
     try {
+      const src = layer['source-layer'] || '';
+      const isNature = id.includes('park') || id.includes('green') || id.includes('landcover')
+        || id.includes('national') || id.includes('forest') || id.includes('grass')
+        || id.includes('wood') || id.includes('scrub') || id.includes('vegetation')
+        || src === 'landcover' || src === 'landuse_overlay' || src === 'landuse';
+
       if (id === 'land' || id === 'land-structure-polygon') {
         map.setPaintProperty(id, 'background-color', palette.land);
       }
@@ -98,11 +142,12 @@ function applyTheme(palette) {
       if (id.includes('building') && type === 'fill') {
         map.setPaintProperty(id, 'fill-color', palette.building);
       }
-      if (id.includes('landuse') && type === 'fill') {
+      if (id.includes('landuse') && type === 'fill' && !isNature) {
         map.setPaintProperty(id, 'fill-color', palette.landuse);
       }
-      if (type === 'fill' && (id.includes('park') || id.includes('green') || id.includes('landcover') || id.includes('national') || id.includes('forest') || id.includes('grass') || id.includes('wood') || id.includes('scrub') || id.includes('vegetation'))) {
+      if (type === 'fill' && isNature) {
         map.setPaintProperty(id, 'fill-color', palette.park);
+        console.log(`  → Applied park color to: "${id}" (source-layer: "${src}")`);
       }
       if (type === 'line' && (id.includes('road') || id.includes('street') || id.includes('link') || id.includes('path'))) {
         map.setPaintProperty(id, 'line-color', palette.road);
@@ -132,10 +177,14 @@ function applyTheme(palette) {
     } catch (e) {}
   });
 
-  // Update marker label styles
+  // Update marker styles
   document.querySelectorAll('.marker-label').forEach(label => {
     label.style.color = palette.markerLabel;
     label.style.textShadow = `0 0 12px ${palette.markerShadow}, 0 0 24px ${palette.markerShadow}, 0 1px 3px ${palette.markerShadow}`;
+  });
+  document.querySelectorAll('.marker-dot').forEach(dot => {
+    dot.style.background = palette.markerAccent;
+    dot.style.setProperty('--accent', palette.markerAccent);
   });
 }
 
@@ -150,14 +199,40 @@ function addMarkers() {
   document.querySelectorAll('.marker').forEach(el => el.remove());
 
   const palette = themes[currentTheme];
+  const isProfile = palette.markerType === 'profile';
 
   engineers.forEach((engineer, index) => {
     const el = document.createElement('div');
     el.className = 'marker';
 
-    const dot = document.createElement('div');
-    dot.className = 'marker-dot';
-    dot.style.animationDelay = `${index * 0.5}s`;
+    if (isProfile) {
+      if (engineer.profileType === 'image') {
+        const avatar = document.createElement('div');
+        avatar.className = 'marker-avatar';
+        const img = document.createElement('img');
+        img.src = engineer.profileImg;
+        img.alt = engineer.name;
+        avatar.appendChild(img);
+        el.appendChild(avatar);
+      } else if (engineer.profileType === 'emoji') {
+        const avatar = document.createElement('div');
+        avatar.className = 'marker-avatar marker-avatar-emoji';
+        avatar.textContent = engineer.emoji;
+        el.appendChild(avatar);
+      } else {
+        const avatar = document.createElement('div');
+        avatar.className = 'marker-avatar';
+        avatar.style.background = engineer.color;
+        avatar.textContent = engineer.initial;
+        el.appendChild(avatar);
+      }
+    } else {
+      const dot = document.createElement('div');
+      dot.className = 'marker-dot' + (palette.markerGlow ? '' : ' no-glow');
+      dot.style.background = palette.markerAccent;
+      dot.style.setProperty('--accent', palette.markerAccent);
+      el.appendChild(dot);
+    }
 
     const label = document.createElement('div');
     label.className = 'marker-label';
@@ -165,7 +240,6 @@ function addMarkers() {
     label.style.color = palette.markerLabel;
     label.style.textShadow = `0 0 12px ${palette.markerShadow}, 0 0 24px ${palette.markerShadow}, 0 1px 3px ${palette.markerShadow}`;
 
-    el.appendChild(dot);
     el.appendChild(label);
 
     new mapboxgl.Marker({ element: el, anchor: 'top' })
@@ -179,10 +253,18 @@ document.querySelectorAll('.theme-btn').forEach(btn => {
   btn.addEventListener('click', () => {
     const theme = btn.dataset.theme;
     if (theme === currentTheme) return;
+    const prevStyle = themes[currentTheme].style;
     currentTheme = theme;
     document.querySelectorAll('.theme-btn').forEach(b => b.classList.remove('active'));
     btn.classList.add('active');
-    map.setStyle(themes[currentTheme].style);
+
+    if (themes[currentTheme].style === prevStyle) {
+      // Same base style (e.g. light ↔ profile) — just re-apply colors + markers
+      applyTheme(themes[currentTheme]);
+      addMarkers();
+    } else {
+      map.setStyle(themes[currentTheme].style);
+    }
   });
 });
 

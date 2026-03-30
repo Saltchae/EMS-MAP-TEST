@@ -392,10 +392,10 @@ body {
 /* Panel Toggle */
 .panel-toggle {
   position: absolute;
-  right: -24px;
+  right: -21px;
   top: 50%;
   transform: translateY(-50%);
-  width: 24px;
+  width: 21px;
   height: 116px;
   background: none;
   border: none;
@@ -509,23 +509,34 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 2px;
+  gap: 4px;
   cursor: pointer;
   filter: drop-shadow(0 0 32px rgba(28, 28, 28, 0.32));
 }
 
 .marker-dot {
-  width: 12px;
-  height: 12px;
+  width: 10px;
+  height: 10px;
   border-radius: var(--radius-full);
   background: var(--accent-06);
-  box-shadow: 0 0 8px var(--accent-06);
+  position: relative;
+}
+
+.marker-dot::after {
+  content: '';
+  position: absolute;
+  inset: -4px;
+  border-radius: var(--radius-full);
+  background: var(--accent, var(--accent-06));
+  opacity: 0.5;
+  filter: blur(4px);
+  z-index: -1;
   animation: glow-pulse 2s ease-in-out infinite;
 }
 
 .marker-label {
   font-family: 'Pretendard', sans-serif;
-  font-size: var(--body1);
+  font-size: 15px;
   font-weight: 600;
   line-height: 1.4;
   color: var(--text-inverse);
@@ -539,25 +550,55 @@ body {
 /* Glow Pulse Animation */
 @keyframes glow-pulse {
   0%, 100% {
-    box-shadow: 0 0 8px var(--accent-06), 0 0 16px rgba(64, 226, 255, 0.4);
-    opacity: 1;
+    opacity: 0.4;
+    transform: scale(1);
   }
   50% {
-    box-shadow: 0 0 16px var(--accent-06), 0 0 32px rgba(64, 226, 255, 0.6), 0 0 48px rgba(64, 226, 255, 0.3);
-    opacity: 0.85;
+    opacity: 0.7;
+    transform: scale(1.3);
   }
 }
 
-/* Stagger animation per marker */
-.marker:nth-child(1) .marker-dot { animation-delay: 0s; }
-.marker:nth-child(2) .marker-dot { animation-delay: 0.5s; }
-.marker:nth-child(3) .marker-dot { animation-delay: 1.0s; }
-.marker:nth-child(4) .marker-dot { animation-delay: 1.5s; }
-
 /* Marker hover */
-.marker:hover .marker-dot {
-  transform: scale(1.3);
-  box-shadow: 0 0 20px var(--accent-06), 0 0 40px rgba(64, 226, 255, 0.7);
+/* Profile avatar marker */
+.marker-avatar {
+  width: 32px;
+  height: 32px;
+  border-radius: 8px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Pretendard', sans-serif;
+  font-size: 14px;
+  font-weight: 700;
+  color: #ffffff;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  transition: transform 0.2s ease;
+}
+
+.marker-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 8px;
+}
+
+.marker-avatar-emoji {
+  background: #ffffff;
+  font-size: 18px;
+}
+
+.marker:hover .marker-avatar {
+  transform: scale(1.1);
+}
+
+.marker-dot.no-glow::after {
+  display: none;
+}
+
+.marker:hover .marker-dot::after {
+  opacity: 0.8;
+  transform: scale(1.5);
 }
 
 .marker:hover .marker-label {
