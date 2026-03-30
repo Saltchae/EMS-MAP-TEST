@@ -1,0 +1,200 @@
+mapboxgl.accessToken = 'pk.eyJ1Ijoic2FsdGNoYWUiLCJhIjoiY21uY2cydnE3MTFzajJycHR4Z2N4dGNpNCJ9.7aesfQQlUU8i3twkvsPB4w';
+
+// Engineer marker data with approximate coordinates
+const engineers = [
+  { name: '박엑셈 대리', coords: [126.72, 37.73] },
+  { name: '최엑셈 차장', coords: [127.05, 37.66] },
+  { name: '김엑셈 과장', coords: [126.88, 37.56] },
+  { name: '이엑셈 사원', coords: [127.01, 37.31] },
+];
+
+// Theme palettes — mono only, no blue
+const themes = {
+  dark: {
+    style: 'mapbox://styles/mapbox/dark-v11',
+    land: '#1e1e1e',
+    water: '#161616',
+    waterLine: '#1c1c1c',
+    building: '#262626',
+    landuse: '#222222',
+    park: '#202020',
+    road: '#2e2e2e',
+    majorRoad: '#383838',
+    roadCase: '#222222',
+    admin: '#3e3e3e',
+    label: '#909090',
+    labelHalo: 'rgba(22, 22, 22, 0.8)',
+    roadLabel: '#707070',
+    poiLabel: '#7a7a7a',
+    placeLabel: '#a8a8a8',
+    markerLabel: '#ffffff',
+    markerShadow: 'rgba(28, 28, 28, 0.8)',
+  },
+  light: {
+    style: 'mapbox://styles/mapbox/light-v11',
+    land: '#e8e8e8',
+    water: '#f0f0f0',
+    waterLine: '#e2e2e2',
+    building: '#dcdcdc',
+    landuse: '#e0e0e0',
+    park: '#dde4d0',
+    road: '#d4d4d4',
+    majorRoad: '#c8c8c8',
+    roadCase: '#e0e0e0',
+    admin: '#c2c2c2',
+    label: '#707070',
+    labelHalo: 'rgba(240, 240, 240, 0.8)',
+    roadLabel: '#909090',
+    poiLabel: '#868686',
+    placeLabel: '#585858',
+    markerLabel: '#222222',
+    markerShadow: 'rgba(255, 255, 255, 0.8)',
+  },
+};
+
+let currentTheme = 'dark';
+
+// Initialize map
+const map = new mapboxgl.Map({
+  container: 'map',
+  style: themes.dark.style,
+  center: [126.9, 37.5],
+  zoom: 9.2,
+  projection: 'globe',
+});
+
+// Apply theme colors to map layers
+function applyTheme(palette) {
+  const layers = map.getStyle().layers;
+
+  layers.forEach(layer => {
+    const id = layer.id;
+    const type = layer.type;
+
+    // Korean labels
+    if (type === 'symbol') {
+      try {
+        const tf = map.getLayoutProperty(id, 'text-field');
+        if (tf) {
+          map.setLayoutProperty(id, 'text-field', [
+            'coalesce',
+            ['get', 'name_ko'],
+            ['get', 'name'],
+          ]);
+        }
+      } catch (e) {}
+    }
+
+    try {
+      if (id === 'land' || id === 'land-structure-polygon') {
+        map.setPaintProperty(id, 'background-color', palette.land);
+      }
+      if (id.includes('water') && type === 'fill') {
+        map.setPaintProperty(id, 'fill-color', palette.water);
+      }
+      if (id.includes('water') && type === 'line') {
+        map.setPaintProperty(id, 'line-color', palette.waterLine);
+      }
+      if (id.includes('building') && type === 'fill') {
+        map.setPaintProperty(id, 'fill-color', palette.building);
+      }
+      if (id.includes('landuse') && type === 'fill') {
+        map.setPaintProperty(id, 'fill-color', palette.landuse);
+      }
+      if (type === 'fill' && (id.includes('park') || id.includes('green') || id.includes('landcover') || id.includes('national') || id.includes('forest') || id.includes('grass') || id.includes('wood') || id.includes('scrub') || id.includes('vegetation'))) {
+        map.setPaintProperty(id, 'fill-color', palette.park);
+      }
+      if (type === 'line' && (id.includes('road') || id.includes('street') || id.includes('link') || id.includes('path'))) {
+        map.setPaintProperty(id, 'line-color', palette.road);
+      }
+      if (type === 'line' && (id.includes('trunk') || id.includes('motorway') || id.includes('primary') || id.includes('secondary'))) {
+        map.setPaintProperty(id, 'line-color', palette.majorRoad);
+      }
+      if (type === 'line' && id.includes('case')) {
+        map.setPaintProperty(id, 'line-color', palette.roadCase);
+      }
+      if (id.includes('admin') && type === 'line') {
+        map.setPaintProperty(id, 'line-color', palette.admin);
+      }
+      if (type === 'symbol') {
+        try { map.setPaintProperty(id, 'text-color', palette.label); } catch(e) {}
+        try { map.setPaintProperty(id, 'text-halo-color', palette.labelHalo); } catch(e) {}
+      }
+      if (type === 'symbol' && id.includes('road')) {
+        try { map.setPaintProperty(id, 'text-color', palette.roadLabel); } catch(e) {}
+      }
+      if (type === 'symbol' && id.includes('poi')) {
+        try { map.setPaintProperty(id, 'text-color', palette.poiLabel); } catch(e) {}
+      }
+      if (type === 'symbol' && (id.includes('place') || id.includes('settlement'))) {
+        try { map.setPaintProperty(id, 'text-color', palette.placeLabel); } catch(e) {}
+      }
+    } catch (e) {}
+  });
+
+  // Update marker label styles
+  document.querySelectorAll('.marker-label').forEach(label => {
+    label.style.color = palette.markerLabel;
+    label.style.textShadow = `0 0 12px ${palette.markerShadow}, 0 0 24px ${palette.markerShadow}, 0 1px 3px ${palette.markerShadow}`;
+  });
+}
+
+// Initial style load
+map.on('style.load', () => {
+  applyTheme(themes[currentTheme]);
+  addMarkers();
+});
+
+function addMarkers() {
+  // Remove existing markers
+  document.querySelectorAll('.marker').forEach(el => el.remove());
+
+  const palette = themes[currentTheme];
+
+  engineers.forEach((engineer, index) => {
+    const el = document.createElement('div');
+    el.className = 'marker';
+
+    const dot = document.createElement('div');
+    dot.className = 'marker-dot';
+    dot.style.animationDelay = `${index * 0.5}s`;
+
+    const label = document.createElement('div');
+    label.className = 'marker-label';
+    label.textContent = engineer.name;
+    label.style.color = palette.markerLabel;
+    label.style.textShadow = `0 0 12px ${palette.markerShadow}, 0 0 24px ${palette.markerShadow}, 0 1px 3px ${palette.markerShadow}`;
+
+    el.appendChild(dot);
+    el.appendChild(label);
+
+    new mapboxgl.Marker({ element: el, anchor: 'top' })
+      .setLngLat(engineer.coords)
+      .addTo(map);
+  });
+}
+
+// Theme toggle
+document.querySelectorAll('.theme-btn').forEach(btn => {
+  btn.addEventListener('click', () => {
+    const theme = btn.dataset.theme;
+    if (theme === currentTheme) return;
+    currentTheme = theme;
+    document.querySelectorAll('.theme-btn').forEach(b => b.classList.remove('active'));
+    btn.classList.add('active');
+    map.setStyle(themes[currentTheme].style);
+  });
+});
+
+// Custom zoom controls
+document.getElementById('zoom-in').addEventListener('click', () => {
+  map.zoomIn({ duration: 300 });
+});
+
+document.getElementById('zoom-out').addEventListener('click', () => {
+  map.zoomOut({ duration: 300 });
+});
+
+document.getElementById('compass').addEventListener('click', () => {
+  map.resetNorth({ duration: 300 });
+});

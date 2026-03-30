@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Engineer Management System</title>
+  <link rel="preconnect" href="https://cdn.jsdelivr.net">
+  <link href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard/dist/web/static/pretendard.css" rel="stylesheet">
+  <script src="https://api.mapbox.com/mapbox-gl-js/v3.11.0/mapbox-gl.js"></script>
+  <link href="https://api.mapbox.com/mapbox-gl-js/v3.11.0/mapbox-gl.css" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="app">
+    <!-- Main Content -->
+    <div class="main">
+      <!-- LNB -->
+      <aside class="lnb">
+        <div class="lnb-top">
+          <div class="lnb-header">
+            <div class="logo">ems *</div>
+            <button class="icon-btn">
+              <img src="assets/menu.svg" alt="menu" width="30" height="30">
+            </button>
+          </div>
+          <div class="lnb-menu">
+            <div class="menu-item active">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#222" stroke-width="1.5">
+                <rect x="3" y="4" width="18" height="16" rx="2"/>
+                <path d="M3 10h18"/>
+                <path d="M8 2v4M16 2v4"/>
+              </svg>
+              <span>일정 관리</span>
+            </div>
+          </div>
+        </div>
+        <div class="lnb-profile">
+          <div class="profile-avatar">디</div>
+          <div class="profile-info">
+            <div class="profile-name">디자인그룹</div>
+            <div class="profile-email">design@ex-em.com</div>
+          </div>
+        </div>
+      </aside>
+
+      <!-- Content Area -->
+      <div class="content">
+        <!-- Tab Header -->
+        <div class="tab-header">
+          <div class="tabs">
+            <span class="tab">캘린더</span>
+            <span class="tab active">지도</span>
+          </div>
+          <button class="btn-primary">
+            <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="white" stroke-width="1.5">
+              <path d="M8 3v10M3 8h10"/>
+            </svg>
+            <span>일정 등록</span>
+          </button>
+        </div>
+
+        <!-- Map + Side Panel -->
+        <div class="map-area">
+          <!-- Side Panel -->
+          <div class="side-panel">
+            <div class="panel-header">
+              <span class="panel-date">3월 11일 수요일</span>
+              <div class="btn-group">
+                <button class="btn-group-item">
+                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="#363636" stroke-width="1.5"><path d="M10 3L5 8l5 5"/></svg>
+                </button>
+                <div class="btn-group-divider"></div>
+                <button class="btn-group-item btn-group-label">오늘</button>
+                <div class="btn-group-divider"></div>
+                <button class="btn-group-item">
+                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="#363636" stroke-width="1.5"><path d="M6 3l5 5-5 5"/></svg>
+                </button>
+              </div>
+            </div>
+            <div class="schedule-list">
+              <div class="schedule-item">
+                <div class="schedule-icon emoji">🌴</div>
+                <div class="schedule-info">
+                  <div class="schedule-title">오전 반차</div>
+                  <div class="schedule-meta">
+                    <span>김엑셈 과장</span>
+                    <span class="meta-divider"></span>
+                    <span>09:00 ~ 13:00</span>
+                  </div>
+                </div>
+              </div>
+              <div class="schedule-item">
+                <div class="schedule-icon"><img src="assets/exemicon.svg" alt="본사"></div>
+                <div class="schedule-info">
+                  <div class="schedule-title">본사 내근</div>
+                  <div class="schedule-meta">
+                    <span>김엑셈 과장</span>
+                    <span class="meta-divider"></span>
+                    <span>09:00 ~ 13:00</span>
+                  </div>
+                </div>
+              </div>
+              <div class="schedule-item">
+                <div class="schedule-icon"><img src="assets/logo-samsung.png" alt="삼성전자"></div>
+                <div class="schedule-info">
+                  <div class="schedule-title">삼성전자 외근</div>
+                  <div class="schedule-meta">
+                    <span>김엑셈 과장</span>
+                    <span class="meta-divider"></span>
+                    <span>09:00 ~ 13:00</span>
+                  </div>
+                </div>
+              </div>
+              <div class="schedule-item">
+                <div class="schedule-icon"><img src="assets/logo-lgcns.png" alt="LG CNS"></div>
+                <div class="schedule-info">
+                  <div class="schedule-title">LG CNS 외근</div>
+                  <div class="schedule-meta">
+                    <span>최엑셈 차장</span>
+                    <span class="meta-divider"></span>
+                    <span>09:00 ~ 13:00</span>
+                  </div>
+                </div>
+              </div>
+              <div class="schedule-item">
+                <div class="schedule-icon"><img src="assets/logo-hanwha.png" alt="한화생명"></div>
+                <div class="schedule-info">
+                  <div class="schedule-title">한화생명 외근</div>
+                  <div class="schedule-meta">
+                    <span>박엑셈 대리</span>
+                    <span class="meta-divider"></span>
+                    <span>09:00 ~ 13:00</span>
+                  </div>
+                </div>
+              </div>
+              <div class="schedule-item">
+                <div class="schedule-icon"><img src="assets/logo-kyobo.png" alt="교보문고"></div>
+                <div class="schedule-info">
+                  <div class="schedule-title">교보문고 외근</div>
+                  <div class="schedule-meta">
+                    <span>이엑셈 사원</span>
+                    <span class="meta-divider"></span>
+                    <span>09:00 ~ 13:00</span>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <!-- Panel Toggle -->
+            <button class="panel-toggle">
+              <svg class="toggle-bg" viewBox="0 0 24 116">
+                <path d="M0,0 C0,20 0,30 12,34 C24,38 24,42 24,48 L24,68 C24,74 24,78 12,82 C0,86 0,96 0,116 Z" fill="white"/>
+              </svg>
+              <svg class="toggle-chevron" width="12" height="12" viewBox="0 0 16 16" fill="none" stroke="#888" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M10 3L5 8l5 5"/>
+              </svg>
+            </button>
+          </div>
+
+          <!-- Map -->
+          <div class="map-container">
+            <div id="map"></div>
+            <!-- Map Theme Toggle -->
+            <div class="map-theme-toggle" id="theme-toggle">
+              <button class="theme-btn" data-theme="light" title="라이트 모드">
+                <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+                  <circle cx="8" cy="8" r="3"/>
+                  <path d="M8 1.5v1.5M8 13v1.5M1.5 8H3M13 8h1.5M3.4 3.4l1 1M11.6 11.6l1 1M3.4 12.6l1-1M11.6 4.4l1-1"/>
+                </svg>
+              </button>
+              <button class="theme-btn active" data-theme="dark" title="다크 모드">
+                <svg width="14" height="14" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round">
+                  <path d="M13.5 8.5a5.5 5.5 0 0 1-7-7 5.5 5.5 0 1 0 7 7z"/>
+                </svg>
+              </button>
+            </div>
+            <!-- Map Controls -->
+            <div class="map-controls">
+              <div class="btn-group map-zoom">
+                <button class="btn-group-item" id="zoom-out">
+                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="#363636" stroke-width="1.5"><path d="M3 8h10"/></svg>
+                </button>
+                <div class="btn-group-divider"></div>
+                <button class="btn-group-item" id="zoom-in">
+                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="#363636" stroke-width="1.5"><path d="M8 3v10M3 8h10"/></svg>
+                </button>
+              </div>
+              <div class="btn-group">
+                <button class="btn-group-item" id="compass">
+                  <svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="#363636" stroke-width="1.5">
+                    <circle cx="8" cy="8" r="6"/>
+                    <path d="M8 4v1M8 11v1M4 8h1M11 8h1"/>
+                    <circle cx="8" cy="8" r="1.5" fill="#363636"/>
+                  </svg>
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
