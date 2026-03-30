@@ -166,12 +166,19 @@ body {
   color: var(--text-tertiary);
 }
 
-/* ===== Content Area ===== */
-.content {
+/* ===== Right Area ===== */
+.right-area {
   flex: 1;
   display: flex;
   flex-direction: column;
   min-width: 0;
+}
+
+/* ===== Body Area (panel + map) ===== */
+.body-area {
+  flex: 1;
+  display: flex;
+  min-height: 0;
 }
 
 /* ===== Tab Header ===== */
@@ -236,14 +243,6 @@ body {
   background: #333;
 }
 
-/* ===== Map Area ===== */
-.map-area {
-  flex: 1;
-  display: flex;
-  position: relative;
-  min-height: 0;
-}
-
 /* ===== Side Panel ===== */
 .side-panel {
   width: 300px;
@@ -251,9 +250,14 @@ body {
   display: flex;
   flex-direction: column;
   background: var(--bg-primary);
-  position: relative;
-  z-index: 2;
-  box-shadow: 2px 0 8px rgba(0, 0, 0, 0.06);
+  overflow: hidden;
+  border-right: 1px solid var(--border-primary);
+  transition: width 0.3s ease, border-right 0.3s ease;
+}
+
+.main.panel-collapsed .side-panel {
+  width: 0;
+  border-right: none;
 }
 
 .panel-header {
@@ -392,7 +396,7 @@ body {
 /* Panel Toggle */
 .panel-toggle {
   position: absolute;
-  right: -21px;
+  left: 0;
   top: 50%;
   transform: translateY(-50%);
   width: 21px;
@@ -418,6 +422,11 @@ body {
 .toggle-chevron {
   position: relative;
   z-index: 1;
+  transition: transform 0.3s ease;
+}
+
+.main.panel-collapsed .toggle-chevron {
+  transform: rotate(180deg);
 }
 
 .panel-toggle:hover .toggle-bg path {
@@ -430,7 +439,6 @@ body {
   position: relative;
   min-width: 0;
   overflow: hidden;
-  z-index: 1;
 }
 
 #map {

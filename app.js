@@ -268,6 +268,14 @@ document.querySelectorAll('.theme-btn').forEach(btn => {
   });
 });
 
+// Side panel toggle
+const mainEl = document.querySelector('.main');
+const panelEl = document.querySelector('.side-panel');
+document.querySelector('.panel-toggle').addEventListener('click', () => {
+  mainEl.classList.toggle('panel-collapsed');
+  panelEl.addEventListener('transitionend', () => map.resize(), { once: true });
+});
+
 // Custom zoom controls
 document.getElementById('zoom-in').addEventListener('click', () => {
   map.zoomIn({ duration: 300 });

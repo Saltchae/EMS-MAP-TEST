@@ -43,9 +43,9 @@
         </div>
       </aside>
 
-      <!-- Content Area -->
-      <div class="content">
-        <!-- Tab Header -->
+      <!-- Right area (tab header + body) -->
+      <div class="right-area">
+        <!-- Tab Header (always full width) -->
         <div class="tab-header">
           <div class="tabs">
             <span class="tab">캘린더</span>
@@ -59,9 +59,9 @@
           </button>
         </div>
 
-        <!-- Map + Side Panel -->
-        <div class="map-area">
-          <!-- Side Panel -->
+        <!-- Body: side panel + map -->
+        <div class="body-area">
+          <!-- Side Panel (collapsible) -->
           <div class="side-panel">
             <div class="panel-header">
               <span class="panel-date">3월 11일 수요일</span>
@@ -145,6 +145,10 @@
                 </div>
               </div>
             </div>
+          </div>
+
+          <!-- Map (always visible) -->
+          <div class="map-container">
             <!-- Panel Toggle -->
             <button class="panel-toggle">
               <svg class="toggle-bg" viewBox="0 0 21 116">
@@ -154,10 +158,6 @@
                 <path d="M10 3L5 8l5 5"/>
               </svg>
             </button>
-          </div>
-
-          <!-- Map -->
-          <div class="map-container">
             <div id="map"></div>
             <!-- Map Theme Toggle -->
             <div class="map-theme-toggle" id="theme-toggle">
