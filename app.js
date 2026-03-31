@@ -1,4 +1,4 @@
-mapboxgl.accessToken = 'pk.eyJ1Ijoic2FsdGNoYWUiLCJhIjoiY21uY2cydnE3MTFzajJycHR4Z2N4dGNpNCJ9.7aesfQQlUU8i3twkvsPB4w';
+mapboxgl.accessToken = MAPBOX_TOKEN;
 
 // Engineer marker data with approximate coordinates
 const engineers = [
@@ -34,6 +34,15 @@ const themes = {
     markerType: 'dot',
   },
   light: {
+    style: 'mapbox://styles/exemexem/cmndwyzdw001701sger4rduoe',
+    customStyle: true,
+    markerLabel: '#222222',
+    markerShadow: 'rgba(255, 255, 255, 0.8)',
+    markerAccent: '#222222',
+    markerGlow: false,
+    markerType: 'dot',
+  },
+  profile: {
     style: 'mapbox://styles/mapbox/light-v11',
     land: '#e8e8e8',
     water: '#cdd4d6',
@@ -50,30 +59,6 @@ const themes = {
     roadLabel: '#909090',
     poiLabel: '#868686',
     placeLabel: '#585858',
-    markerLabel: '#222222',
-    markerShadow: 'rgba(255, 255, 255, 0.8)',
-    markerAccent: '#222222',
-    markerGlow: false,
-    markerType: 'dot',
-
-  },
-  profile: {
-    style: 'mapbox://styles/mapbox/light-v11',
-    land: '#e8eded',
-    water: '#d5dbdd',
-    waterLine: '#cdd3d6',
-    building: '#dbe1e1',
-    landuse: '#f0f2ee',
-    park: '#f0f2ee',
-    road: '#fbfbf9',
-    majorRoad: '#fbfbf9',
-    roadCase: '#f0f2ee',
-    admin: '#bfbfbf',
-    label: '#bababa',
-    labelHalo: 'rgba(251, 251, 249, 0.8)',
-    roadLabel: '#737373',
-    poiLabel: '#5892b6',
-    placeLabel: '#4f4f4f',
     markerLabel: '#222222',
     markerShadow: 'rgba(255, 255, 255, 0.8)',
     markerAccent: '#222222',
@@ -95,15 +80,21 @@ const map = new mapboxgl.Map({
 
 // Apply theme colors to map layers
 function applyTheme(palette) {
-  const layers = map.getStyle().layers;
+  // Skip color overrides for custom Mapbox Studio styles
+  if (palette.customStyle) {
+    // Only update marker styles
+    document.querySelectorAll('.marker-label').forEach(label => {
+      label.style.color = palette.markerLabel;
+      label.style.textShadow = `0 0 12px ${palette.markerShadow}, 0 0 24px ${palette.markerShadow}, 0 1px 3px ${palette.markerShadow}`;
+    });
+    document.querySelectorAll('.marker-dot').forEach(dot => {
+      dot.style.background = palette.markerAccent;
+      dot.style.setProperty('--accent', palette.markerAccent);
+    });
+    return;
+  }
 
-  // Debug: log all fill/fill-extrusion layers to find nature layer IDs
-  console.log('--- All fill layers ---');
-  layers.forEach(l => {
-    if (l.type === 'fill' || l.type === 'fill-extrusion') {
-      console.log(`id: "${l.id}", type: ${l.type}, source-layer: "${l['source-layer'] || ''}"`)
-    }
-  });
+  const layers = map.getStyle().layers;
 
   layers.forEach(layer => {
     const id = layer.id;
@@ -253,18 +244,10 @@ document.querySelectorAll('.theme-btn').forEach(btn => {
   btn.addEventListener('click', () => {
     const theme = btn.dataset.theme;
     if (theme === currentTheme) return;
-    const prevStyle = themes[currentTheme].style;
     currentTheme = theme;
     document.querySelectorAll('.theme-btn').forEach(b => b.classList.remove('active'));
     btn.classList.add('active');
-
-    if (themes[currentTheme].style === prevStyle) {
-      // Same base style (e.g. light ↔ profile) — just re-apply colors + markers
-      applyTheme(themes[currentTheme]);
-      addMarkers();
-    } else {
-      map.setStyle(themes[currentTheme].style);
-    }
+    map.setStyle(themes[currentTheme].style);
   });
 });
 
