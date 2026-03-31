@@ -305,48 +305,12 @@ function addSummaryView(palette) {
   const card = document.createElement('div');
   card.className = 'summary-card';
 
-  // Row 1: 본사 내근
-  const row1 = document.createElement('div');
-  row1.className = 'summary-row';
-  const icon1 = document.createElement('div');
-  icon1.className = 'summary-icon';
-  const img1 = document.createElement('img');
-  img1.src = 'assets/exemicon.svg';
-  img1.width = 20;
-  img1.height = 20;
-  icon1.appendChild(img1);
-  row1.appendChild(icon1);
-  const text1 = document.createElement('span');
-  text1.className = 'summary-text';
-  text1.textContent = '본사 내근';
-  row1.appendChild(text1);
-  const badge1 = document.createElement('span');
-  badge1.className = 'summary-badge';
-  badge1.textContent = '+' + hqMembers.length;
-  row1.appendChild(badge1);
-  card.appendChild(row1);
-
-  // Divider
-  const divider = document.createElement('div');
-  divider.className = 'summary-divider';
-  card.appendChild(divider);
-
-  // Row 2: 외근
-  const row2 = document.createElement('div');
-  row2.className = 'summary-row';
-  const icon2 = document.createElement('div');
-  icon2.className = 'summary-icon summary-icon-office';
-  icon2.innerHTML = '<svg width="16" height="16" viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M2 14V4h5v10"/><path d="M7 7h5v7h2V2H7"/><path d="M4 6.5h1M4 9h1M4 11.5h1M9 9.5h1M9 12h1"/></svg>';
-  row2.appendChild(icon2);
-  const text2 = document.createElement('span');
-  text2.className = 'summary-text';
-  text2.textContent = '외근';
-  row2.appendChild(text2);
-  const badge2 = document.createElement('span');
-  badge2.className = 'summary-badge';
-  badge2.textContent = '+' + seoulCount;
-  row2.appendChild(badge2);
-  card.appendChild(row2);
+  // Single badge: total marker count
+  const totalCount = hqMembers.length + seoulCount;
+  const badge = document.createElement('span');
+  badge.className = 'summary-badge';
+  badge.textContent = '+' + totalCount;
+  card.appendChild(badge);
 
   el.appendChild(card);
 

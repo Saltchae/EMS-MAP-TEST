@@ -800,15 +800,15 @@ body {
 }
 
 .summary-card {
-  background: rgba(255, 255, 255, 0.85);
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border-radius: 12px;
-  padding: 10px 14px;
+  background: rgba(0, 0, 0, 0.55);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
   display: flex;
-  flex-direction: column;
-  gap: 0;
-  min-width: 140px;
+  align-items: center;
+  justify-content: center;
 }
 
 .summary-row {
@@ -852,12 +852,11 @@ body {
 
 .summary-badge {
   font-family: 'Pretendard', sans-serif;
-  font-size: 12px;
+  font-size: 13px;
   font-weight: 600;
-  color: var(--text-tertiary);
-  background: var(--elevation-2);
-  padding: 2px 6px;
-  border-radius: var(--radius-full);
+  color: #ffffff;
+  background: none;
+  padding: 0;
 }
 
 .summary-divider {
@@ -866,13 +865,13 @@ body {
 }
 
 .marker-summary:hover .summary-card {
-  background: rgba(255, 255, 255, 0.95);
+  background: rgba(0, 0, 0, 0.7);
 }
 
 /* Dark mode summary */
 .marker-summary.dark .summary-card {
-  background: rgba(28, 28, 28, 0.85);
-  border: 1px solid rgba(255, 255, 255, 0.08);
+  background: rgba(64, 226, 255, 0.25);
+  border: 1px solid rgba(64, 226, 255, 0.3);
 }
 
 .marker-summary.dark .summary-text {
@@ -894,5 +893,5 @@ body {
 }
 
 .marker-summary.dark:hover .summary-card {
-  background: rgba(28, 28, 28, 0.92);
+  background: rgba(64, 226, 255, 0.4);
 }
