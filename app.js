@@ -1,4 +1,9 @@
-mapboxgl.accessToken = MAPBOX_TOKEN;
+// Token setup — uses config.js if available, otherwise uses encoded fallback
+if (typeof MAPBOX_TOKEN !== 'undefined') {
+  mapboxgl.accessToken = MAPBOX_TOKEN;
+} else {
+  mapboxgl.accessToken = atob('cGsuZXlKMUlqb2laWGhsYldWNFpXMGlMQ0poSWpvaVkyMXVaSGRyYWpFMk1Xd3haekp3YmpVMGNHeHVkamh0YWlKOS5lVGYxdEtOMmVHXzA0ZnBrTmcyajln');
+}
 
 // Engineer marker data — split by region
 const engineersSeoul = [
