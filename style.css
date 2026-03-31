@@ -78,7 +78,7 @@ body {
 
 .logo {
   font-family: 'Unica 77 LL', 'Pretendard', sans-serif;
-  font-weight: 500;
+  font-weight: 400;
   font-size: 20px;
   letter-spacing: -0.8px;
   color: var(--text-primary);
@@ -229,7 +229,7 @@ body {
   border-radius: var(--radius-medium);
   font-family: 'Pretendard', sans-serif;
   font-size: var(--body2);
-  font-weight: 500;
+  font-weight: 400;
   cursor: pointer;
   white-space: nowrap;
   overflow: hidden;
@@ -304,7 +304,7 @@ body {
 .btn-group-label {
   font-family: 'Pretendard', sans-serif;
   font-size: var(--body2);
-  font-weight: 500;
+  font-weight: 400;
   color: var(--text-secondary);
   padding: 0 8px;
   white-space: nowrap;
@@ -370,7 +370,7 @@ body {
 
 .schedule-title {
   font-size: var(--body1);
-  font-weight: 500;
+  font-weight: 400;
   line-height: 1.4;
   color: var(--text-primary);
   white-space: nowrap;
@@ -524,8 +524,8 @@ body {
 }
 
 .marker-dot {
-  width: 10px;
-  height: 10px;
+  width: 8px;
+  height: 8px;
   border-radius: var(--radius-full);
   background: var(--accent-06);
   position: relative;
@@ -617,4 +617,282 @@ body {
 .marker-dot,
 .marker-label {
   transition: transform 0.2s ease;
+}
+
+
+/* ===== Cluster Marker ===== */
+.marker-cluster {
+  cursor: pointer;
+}
+
+.marker-cluster .marker-avatar {
+  position: relative;
+  overflow: visible;
+}
+
+.cluster-badge {
+  position: absolute;
+  top: -6px;
+  right: -10px;
+  min-width: 20px;
+  height: 20px;
+  padding: 0 5px;
+  border-radius: var(--radius-full);
+  background: var(--solid-primary);
+  color: var(--text-inverse);
+  font-family: 'Pretendard', sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.2);
+  transition: opacity 0.2s ease;
+}
+
+/* ===== Cluster Tooltip (hover) ===== */
+.cluster-tooltip {
+  position: absolute;
+  bottom: calc(100% + 8px);
+  left: 50%;
+  transform: translateX(-50%);
+  background: rgba(28, 28, 28, 0.85);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border-radius: var(--radius-strong);
+  padding: 8px 12px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.2s ease, transform 0.2s ease;
+  transform: translateX(-50%) translateY(4px);
+  white-space: nowrap;
+  z-index: 20;
+}
+
+.cluster-tooltip::after {
+  content: '';
+  position: absolute;
+  top: 100%;
+  left: 50%;
+  transform: translateX(-50%);
+  border: 5px solid transparent;
+  border-top-color: rgba(28, 28, 28, 0.85);
+}
+
+.marker-cluster:hover .cluster-tooltip {
+  opacity: 1;
+  pointer-events: auto;
+  transform: translateX(-50%) translateY(0);
+}
+
+.marker-cluster:hover .cluster-badge {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.cluster-tooltip-row {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-family: 'Pretendard', sans-serif;
+  font-size: 13px;
+  color: #ffffff;
+  line-height: 1.4;
+}
+
+.cluster-tooltip-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+/* ===== HQ Expanded Card ===== */
+.marker-hq-expanded {
+  filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.15));
+  animation: card-appear 0.3s ease-out;
+}
+
+@keyframes card-appear {
+  from {
+    opacity: 0;
+    transform: scale(0.9) translateY(4px);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1) translateY(0);
+  }
+}
+
+.hq-card {
+  background: rgba(10, 10, 10, 0.88);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border-radius: 12px;
+  padding: 18px 20px 22px;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  min-width: 120px;
+}
+
+.hq-card-header {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-family: 'Pretendard', sans-serif;
+  font-size: 12px;
+  font-weight: 400;
+  color: rgba(255, 255, 255, 0.5);
+  padding-left: 0;
+  padding-bottom: 10px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+  margin-left: -6px;
+  margin-right: -6px;
+  padding-right: 6px;
+}
+
+.hq-card-row {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.hq-card-dot {
+  width: 24px;
+  height: 24px;
+  border-radius: 6px;
+  flex-shrink: 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-family: 'Pretendard', sans-serif;
+  font-size: 11px;
+  font-weight: 700;
+  color: #ffffff;
+}
+
+.hq-card-name {
+  font-family: 'Pretendard', sans-serif;
+  font-size: 13px;
+  font-weight: 400;
+  color: #ffffff;
+  white-space: nowrap;
+}
+
+/* ===== Dark Mode — Cluster & Card Tint ===== */
+.marker-cluster.dark .cluster-badge {
+  background: #40e2ff;
+  color: #111111;
+}
+
+.hq-card-header img {
+  display: none;
+}
+
+/* ===== Corporate Summary Card ===== */
+.marker-summary {
+  cursor: pointer;
+  filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.12));
+}
+
+.summary-card {
+  background: rgba(255, 255, 255, 0.85);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border-radius: 12px;
+  padding: 10px 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  min-width: 140px;
+}
+
+.summary-row {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 0;
+}
+
+.summary-icon {
+  width: 24px;
+  height: 24px;
+  border-radius: 6px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+  overflow: hidden;
+}
+
+.summary-icon img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 6px;
+}
+
+.summary-icon-office {
+  background: var(--solid-primary);
+  color: var(--text-inverse);
+}
+
+.summary-text {
+  flex: 1;
+  font-family: 'Pretendard', sans-serif;
+  font-size: 14px;
+  font-weight: 400;
+  color: var(--text-primary);
+  white-space: nowrap;
+}
+
+.summary-badge {
+  font-family: 'Pretendard', sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--text-tertiary);
+  background: var(--elevation-2);
+  padding: 2px 6px;
+  border-radius: var(--radius-full);
+}
+
+.summary-divider {
+  height: 1px;
+  background: var(--border-primary);
+}
+
+.marker-summary:hover .summary-card {
+  background: rgba(255, 255, 255, 0.95);
+}
+
+/* Dark mode summary */
+.marker-summary.dark .summary-card {
+  background: rgba(28, 28, 28, 0.85);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+}
+
+.marker-summary.dark .summary-text {
+  color: rgba(255, 255, 255, 0.9);
+}
+
+.marker-summary.dark .summary-badge {
+  color: rgba(255, 255, 255, 0.6);
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.marker-summary.dark .summary-divider {
+  background: rgba(255, 255, 255, 0.1);
+}
+
+.marker-summary.dark .summary-icon-office {
+  background: rgba(255, 255, 255, 0.15);
+  color: #ffffff;
+}
+
+.marker-summary.dark:hover .summary-card {
+  background: rgba(28, 28, 28, 0.92);
 }
