@@ -30,7 +30,7 @@
       "layout": {},
       "minzoom": 0,
       "paint": {
-        "background-color": "#fbfbf9"
+        "background-color": "#e8eded"
       },
       "metadata": {
         "mapbox:featureComponent": "land-and-water",
@@ -538,7 +538,7 @@
       ],
       "layout": {},
       "paint": {
-        "fill-color": "#e8e8e8",
+        "fill-color": "#dbe1e1",
         "fill-opacity": [
           "interpolate",
           [
@@ -2587,7 +2587,7 @@
             96
           ]
         ],
-        "line-color": "#f2f4f1"
+        "line-color": "#f0f2ee"
       },
       "metadata": {
         "mapbox:featureComponent": "road-network",
@@ -2890,7 +2890,7 @@
         ]
       ],
       "paint": {
-        "line-color": "#828282",
+        "line-color": "#bfbfbf",
         "line-width": [
           "interpolate",
           [
@@ -2992,7 +2992,7 @@
           12,
           10.4
         ],
-        "line-color": "#828282",
+        "line-color": "#bfbfbf",
         "line-opacity": [
           "interpolate",
           [
@@ -3114,7 +3114,7 @@
           3,
           1
         ],
-        "line-color": "#828282"
+        "line-color": "#bfbfbf"
       },
       "metadata": {
         "mapbox:featureComponent": "admin-boundaries",
@@ -3169,7 +3169,7 @@
       ],
       "layout": {},
       "paint": {
-        "line-color": "#828282",
+        "line-color": "#bfbfbf",
         "line-width": [
           "interpolate",
           [
@@ -3240,7 +3240,7 @@
         ]
       ],
       "paint": {
-        "line-color": "#828282",
+        "line-color": "#bfbfbf",
         "line-width": [
           "interpolate",
           [
@@ -3380,8 +3380,8 @@
         "text-letter-spacing": 0.01
       },
       "paint": {
-        "text-color": "#bababa",
-        "text-halo-color": "rgba(251, 251, 249, 0.8)",
+        "text-color": "#737373",
+        "text-halo-color": "rgba(251,251,249,0.8)",
         "text-halo-width": 1
       },
       "metadata": {
@@ -3483,7 +3483,7 @@
       },
       "paint": {
         "text-color": "#bababa",
-        "text-halo-color": "rgba(251, 251, 249, 0.8)"
+        "text-halo-color": "rgba(251,251,249,0.8)"
       },
       "metadata": {
         "mapbox:featureComponent": "natural-features",
@@ -3593,7 +3593,7 @@
       "id": "natural-line-label",
       "paint": {
         "text-halo-width": 0.5,
-        "text-halo-color": "rgba(251, 251, 249, 0.8)",
+        "text-halo-color": "rgba(251,251,249,0.8)",
         "text-halo-blur": 0.5,
         "text-color": "#bababa"
       },
@@ -3736,7 +3736,7 @@
             1
           ]
         ],
-        "text-halo-color": "rgba(251, 251, 249, 0.8)",
+        "text-halo-color": "rgba(251,251,249,0.8)",
         "text-halo-width": 0.5,
         "text-halo-blur": 0.5,
         "text-color": "#5892b6"
@@ -3876,7 +3876,7 @@
       "id": "water-line-label",
       "paint": {
         "text-color": "#bababa",
-        "text-halo-color": "rgba(251, 251, 249, 0.8)"
+        "text-halo-color": "rgba(251,251,249,0.8)"
       },
       "source-layer": "natural_label"
     },
@@ -4022,7 +4022,7 @@
       },
       "paint": {
         "text-color": "#5892b6",
-        "text-halo-color": "rgba(251, 251, 249, 0.8)"
+        "text-halo-color": "rgba(251,251,249,0.8)"
       },
       "metadata": {
         "mapbox:featureComponent": "natural-features",
@@ -4134,7 +4134,7 @@
         ]
       },
       "paint": {
-        "text-halo-color": "rgba(251, 251, 249, 0.8)",
+        "text-halo-color": "rgba(251,251,249,0.8)",
         "text-halo-width": 0.5,
         "text-halo-blur": 0.5,
         "text-color": "#5892b6"
@@ -4216,7 +4216,7 @@
       },
       "paint": {
         "text-color": "#bababa",
-        "text-halo-color": "rgba(251, 251, 249, 0.8)",
+        "text-halo-color": "rgba(251,251,249,0.8)",
         "text-halo-width": 1
       },
       "metadata": {
@@ -4332,9 +4332,9 @@
       "source": "composite",
       "id": "settlement-subdivision-label",
       "paint": {
-        "text-halo-color": "rgba(251, 251, 249, 0.8)",
+        "text-halo-color": "rgba(251,251,249,0.8)",
         "text-halo-width": 1,
-        "text-color": "#828282",
+        "text-color": "#4f4f4f",
         "text-halo-blur": 0.5
       },
       "source-layer": "place_label",
@@ -4572,8 +4572,8 @@
       "source": "composite",
       "id": "settlement-minor-label",
       "paint": {
-        "text-color": "#828282",
-        "text-halo-color": "rgba(251, 251, 249, 0.8)",
+        "text-color": "#4f4f4f",
+        "text-halo-color": "rgba(251,251,249,0.8)",
         "text-halo-width": 1,
         "icon-opacity": [
           "step",
@@ -4839,8 +4839,8 @@
       "source": "composite",
       "id": "settlement-major-label",
       "paint": {
-        "text-color": "#828282",
-        "text-halo-color": "rgba(251, 251, 249, 0.8)",
+        "text-color": "#4f4f4f",
+        "text-halo-color": "rgba(251,251,249,0.8)",
         "text-halo-width": 1,
         "icon-opacity": [
           "step",
@@ -4951,7 +4951,7 @@
       "id": "state-label",
       "paint": {
         "text-color": "#bababa",
-        "text-halo-color": "rgba(251, 251, 249, 0.8)",
+        "text-halo-color": "rgba(251,251,249,0.8)",
         "text-halo-width": 1,
         "text-opacity": 0.5
       },
@@ -5079,7 +5079,7 @@
           0
         ],
         "text-color": "#bababa",
-        "text-halo-color": "rgba(251, 251, 249, 0.8)",
+        "text-halo-color": "rgba(251,251,249,0.8)",
         "text-halo-width": 1.25
       },
       "source-layer": "place_label",
@@ -5139,7 +5139,7 @@
       "id": "continent-label",
       "paint": {
         "text-color": "#bababa",
-        "text-halo-color": "rgba(251, 251, 249, 0.8)",
+        "text-halo-color": "rgba(251,251,249,0.8)",
         "text-halo-width": 1.5,
         "text-opacity": [
           "interpolate",
